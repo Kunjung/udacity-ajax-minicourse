@@ -22,7 +22,30 @@ function loadData() {
         location + '">');
 
     // YOUR CODE GOES HERE!
+    var NYTimesAPI = "e15db2de7b7b4f0daed32d1fe82b0f45"
 
+    var nyTimesUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+    nyTimesUrl += "?q=" + city + "&sort=newest" + "&api-key=" + 
+        NYTimesAPI;
+
+    $.getJSON(nyTimesUrl, function(data) {
+        $nytHeaderElem.text('New York Times Articles About ' + city);
+        articles = data.response.docs;
+        for (var i = 0; i < articles.length; i++) {
+            var article = articles[i]
+
+            $nytElem.append('<li class="article">' + 
+                '<a href="' + article.web_url + '">' + article.headline.main + 
+                '</a>' +
+                '<p>' + article.snippet + '</p>' + 
+            '</li>'
+            );
+
+        }
+    })
+    .error(function() {
+        $nytHeaderElem.text('New York Times Articles Could Not be Loaded');
+    });
 
     return false;
 };
