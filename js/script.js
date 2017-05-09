@@ -11,6 +11,7 @@ function loadData() {
     $wikiElem.text("");
     $nytElem.text("");
 
+    // Step 1 of 3 - Street View
     // load streetview
     var street = $('#street').val();
     var city = $('#city').val();
@@ -21,7 +22,10 @@ function loadData() {
     $body.append('<img class="bgimg" src="http://maps.googleapis.com/maps/api/streetview?size=600x300&location=' + 
         location + '">');
 
-    // YOUR CODE GOES HERE!
+  
+
+    // Step 2 - New York Times Articles
+
     var NYTimesAPI = "e15db2de7b7b4f0daed32d1fe82b0f45"
 
     var nyTimesUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
@@ -46,6 +50,30 @@ function loadData() {
     .error(function() {
         $nytHeaderElem.text('New York Times Articles Could Not be Loaded');
     });
+
+    // Step 3 of 3 - Wikipedia Articles
+    var wikiTimeout = setTimeout(function() {
+        $wikiElem.text("Failed to load wikipedia articles");
+    }, 8000);
+
+    $.ajax({
+        dataType : "jsonp",
+        url : "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + city + 
+            "&callback=wikiCallback",
+
+        success : function(data) {
+            var articles = data[1];
+            for (var i = 0; i < articles.length; i++) {
+                var article = articles[i];
+                var url = "https://en.wikipedia.org/wiki/" + article;
+
+                $wikiElem.append('<li><a href="' + url + '">' +
+                    article + '</a></li>');
+
+            }
+            clearTimeout(wikiTimeout);
+        }
+    })
 
     return false;
 };
