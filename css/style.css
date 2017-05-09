@@ -1,5 +1,7 @@
 * {box-sizing:border-box;}
-body {background-color: #CCC;}
+body {background-color: #CCC;
+
+}
 
 .bgimg {
     position:fixed;
@@ -11,9 +13,12 @@ body {background-color: #CCC;}
 }
 
 .greeting {
-    color:black;
-    text-shadow: 1px 1px 3px rgba(255,255,255, .5);
+    color:white;
+    text-shadow: 1px 1px 3px rgba(255,255,255, .2);
+    background: black;
+    display:table;
     text-align: center;
+    
 }
 
 .wikipedia-container {
@@ -21,13 +26,13 @@ body {background-color: #CCC;}
     width:290px;
     padding:10px;
     margin-right: 10px;
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255,255,255,0.6);
 }
 
 .nytimes-container {
     padding: 10px;
     margin-right:300px;
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255,255,255,0.6);
 }
 
 .article-list {
